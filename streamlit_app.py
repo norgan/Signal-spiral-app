@@ -3,17 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
---- Page Setup ---
+#--- Page Setup ---
 
 st.set_page_config(page_title="Signal Spiral Generator", layout="centered") st.title("Signal Spiral & Harmonic Frequency Report")
 
---- Functions ---
+#--- Functions ---
 
 def calculate_harmonic(dob): year = dob.year month = dob.month day = dob.day if dob.day != 0 else 1  # prevent division by zero n = (year * month) % day return n
 
 def generate_spiral(harmonic, max_points=5000): golden_angle = np.deg2rad(137.5) r = np.sqrt(np.arange(1, max_points + 1)) theta = np.arange(1, max_points + 1) * golden_angle x = r * np.cos(theta) y = r * np.sin(theta) return x, y, harmonic
 
---- UI ---
+#--- UI ---
 
 dob = st.date_input( "Enter your date of birth:", value=datetime(1990, 1, 1), min_value=datetime(1900, 1, 1), max_value=datetime.today() )
 
