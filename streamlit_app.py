@@ -9,9 +9,10 @@ st.title("Signal Spiral & Harmonic Frequency Report")
 
 # --- Functions ---
 def calculate_harmonic(dob):
+    # Harmonic entry point: n = (year * month) % day
     year = dob.year
     month = dob.month
-    day = dob.day if dob.day != 0 else 1  # prevent division by zero
+    day = dob.day  # never zero in a valid date
     n = (year * month) % day
     return n
 
@@ -38,15 +39,14 @@ partner_dob = st.date_input(
     max_value=datetime.today()
 )
 
-draw_button = st.button("Generate Signal Spiral")
+if st.button("Generate Signal Spiral"):
+    h = calculate_harmonic(dob)
+    x, y, _ = generate_spiral(h)
 
-if draw_button:
-    harmonic = calculate_harmonic(dob)
-    x, y, h = generate_spiral(harmonic)
-
+    # Main spiral
     fig, ax = plt.subplots(figsize=(8, 8), facecolor="black")
     ax.set_facecolor("black")
-    ax.plot(x, y, color=(1, 1, 1, 0.03), linewidth=0.5)
+    ax.plot(x, y, color=(1,1,1,0.1), linewidth=0.6)  # stronger alpha for visibility
     ax.scatter(x[h], y[h], color="red", s=80, edgecolors="white", linewidths=1.5, label=f"Harmonic {h}")
     ax.set_aspect("equal")
     ax.axis("off")
@@ -56,21 +56,21 @@ if draw_button:
     st.markdown(f"### Your Harmonic Frequency: **{h}**")
     st.info("This number represents your personal resonance entry point into the signal spiral.")
 
+    # Partner overlay
     if partner_dob:
-        partner_h = calculate_harmonic(partner_dob)
-        st.markdown(f"### Partner's Harmonic Frequency: **{partner_h}**")
+        ph = calculate_harmonic(partner_dob)
+        st.markdown(f"### Partner's Harmonic Frequency: **{ph}**")
 
-        diff = abs(h - partner_h)
-        score = max(0, 100 - diff * 5)
+        score = max(0, 100 - abs(h - ph)*5)
         st.success(f"**Resonance Score:** {score}/100")
 
         fig2, ax2 = plt.subplots(figsize=(8, 8), facecolor="black")
         ax2.set_facecolor("black")
-        x2, y2, _ = generate_spiral(partner_h)
-        ax2.plot(x, y, color=(1, 1, 1, 0.03), linewidth=0.5)
-        ax2.plot(x2, y2, color=(0.5, 0.5, 1, 0.03), linewidth=0.5)
+        x2, y2, _ = generate_spiral(ph)
+        ax2.plot(x, y, color=(1,1,1,0.1), linewidth=0.6)
+        ax2.plot(x2, y2, color=(0.5,0.5,1,0.1), linewidth=0.6)
         ax2.scatter(x[h], y[h], color="red", s=80, edgecolors="white", linewidths=1.5, label="You")
-        ax2.scatter(x2[partner_h], y2[partner_h], color="blue", s=80, edgecolors="white", linewidths=1.5, label="Partner")
+        ax2.scatter(x2[ph], y2[ph], color="blue", s=80, edgecolors="white", linewidths=1.5, label="Partner")
         ax2.set_aspect("equal")
         ax2.axis("off")
         ax2.legend(facecolor="black", edgecolor="white", labelcolor="white")
