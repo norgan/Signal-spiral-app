@@ -24,8 +24,19 @@ def generate_spiral(harmonic, max_points=1000):
     return x, y, harmonic
 
 # --- UI ---
-dob = st.date_input("Enter your date of birth:", value=datetime(1940, 1, 1))
-partner_dob = st.date_input("Enter partner's DOB (optional):", value=None)
+dob = st.date_input(
+    "Enter your date of birth:",
+    value=datetime(1990, 1, 1),
+    min_value=datetime(1900, 1, 1),
+    max_value=datetime.today()
+)
+
+partner_dob = st.date_input(
+    "Enter partner's DOB (optional):",
+    value=None,
+    min_value=datetime(1900, 1, 1),
+    max_value=datetime.today()
+)
 
 draw_button = st.button("Generate Signal Spiral")
 
