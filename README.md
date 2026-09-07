@@ -6,13 +6,15 @@ Live site: https://signalspiral.norgan.net/
 
 ## Current interface
 
-The canonical public interface is the static browser app:
+The canonical public interface is a static browser app. The production bundle is:
 
 - `index.html`
 - `styles.css`
 - `app.js`
+- `relationship-obfuscation.js`
 - `arc-v2.js`
 - `harmonics432.js`
+- `tone-engine.js`
 
 It runs entirely in the browser and requires no server-side runtime.
 
@@ -46,7 +48,7 @@ Every node therefore remains in the same residue class:
 n(k) mod m = a
 ```
 
-The app distinguishes three things:
+The app distinguishes:
 
 - **candidate arc family** — the full residue class `a mod m` visible within the rendered field;
 - **lived traversal** — the ordered nodes from `n0` through one node per completed birthday;
@@ -100,6 +102,21 @@ lcm(m1, m2)
 
 These are geometric or number-theoretic outputs. Compatibility meaning is not inferred by the mathematics.
 
+## Relationship privacy
+
+Relationship mode keeps Name and DOB inputs because those values are part of the chosen exploratory mapping. The user can choose how those details are displayed and shared.
+
+The relationship privacy control provides:
+
+- **Show entered names and dates** — normal local display and explicit full-detail sharing;
+- **Obfuscate personal details** — render anonymous `Person N` labels, mask DOB controls, and omit names/DOBs from copied relationship links.
+
+No personal example names or dates are embedded as application defaults. The base `peopleDefaults()` values are generic `Person 1` / `Person 2` labels with blank DOBs.
+
+Older relationship URLs may contain a `people=` query payload. The privacy layer treats legacy personal-data links conservatively unless full-detail display is explicitly selected.
+
+All entered data is processed locally in the browser. The static app does not submit names or DOBs to a server.
+
 ## Experimental harmonics and legacy mappings
 
 The app reports the geometric stride angle:
@@ -123,9 +140,9 @@ f432 = 432 Hz × H
 
 Because `n0 = year × month` and `a = n0 mod day`, `H` is the same residue value as `a` in Arc Generator v2. Both harmonic systems and their octave families are deliberate experimental sound mappings, not physical measurements or therapeutic frequencies.
 
-The original Big Five estimate formula is also retained for provenance. It is not derived from Arc Generator v2 and is not a validated psychometric assessment.
+The original Big Five estimate formula is retained for provenance. It is not derived from Arc Generator v2 and is not a validated psychometric assessment.
 
-## Historical 432-base mapping
+### Historical 432-base observation
 
 A historical private test case produced:
 
@@ -136,20 +153,16 @@ f432 = 864 Hz
 
 The session was followed by a report of immediate subjective pain reduction. This is preserved as provenance for the experiment, not as evidence that 864 Hz treats pain. The observation was uncontrolled, unblinded and anecdotal.
 
-## Privacy
-
-No personal example names or dates are embedded in the public interface.
-
-Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, including the observation date, so copied links should be reviewed before distribution.
-
 ## Tone generator
 
-The harmonic table can map the experimental harmonic values into audible sine tones using the Web Audio API.
+The harmonic table maps experimental harmonic values into audible sine tones using the Web Audio API.
 
+- playback starts only after explicit user interaction;
 - only one tone plays at a time;
-- playback starts only after an explicit user click;
 - volume defaults low and is capped in the interface;
-- tones can be stopped immediately with the Stop tone control.
+- a fixed 432 Hz test control verifies browser audio independently of profile calculations;
+- the UI reports audio-context state and playback errors;
+- tones can be stopped immediately.
 
 These tones are experimental audio references only. They are not validated therapeutic frequencies and are not medical treatments.
 
@@ -164,28 +177,6 @@ The intended discipline is:
 ```text
 geometry first -> declared mapping -> observed consequence -> interpretation
 ```
-
-## Run locally
-
-Open `index.html` directly, or serve the repository with any static web server:
-
-```bash
-python -m http.server 8080
-```
-
-Then visit `http://localhost:8080`.
-
-## Deployment
-
-The repository root is prepared for static GitHub Pages deployment and includes:
-
-- `.github/workflows/pages.yml` for Actions deployment;
-- `CNAME` for `signalspiral.norgan.net`;
-- `.nojekyll` for plain static-file serving.
-
-One repository setting must be enabled manually once before the workflow can deploy: **Settings → Pages → Build and deployment → Source → GitHub Actions**. The GitHub App used for automated repo edits cannot create the Pages site itself, so this setting cannot be enabled from the app workflow.
-
-After that one-time setting, pushes to `main` run the Pages workflow automatically.
 
 ## Mathematical basis
 
@@ -216,6 +207,46 @@ The intrinsic modular angular fundamental for stride `m` is:
 Delta_theta_m = (m × golden_angle) mod 2pi
 ```
 
+## Run locally
+
+Open `index.html` directly, or serve the repository with any static web server:
+
+```bash
+python -m http.server 8080
+```
+
+Then visit `http://localhost:8080`.
+
+## Production deployment
+
+The canonical production host is Nathan Organ's Hestia-managed web server. GitHub is the canonical source repository; GitHub Pages is not the production host.
+
+Deploy the seven-file static bundle together:
+
+```text
+index.html
+styles.css
+app.js
+relationship-obfuscation.js
+arc-v2.js
+harmonics432.js
+tone-engine.js
+```
+
+Do not update only `app.js`, because the privacy, Arc v2, harmonic and tone layers are separate browser files loaded by `index.html`.
+
+A generic rsync helper is provided:
+
+```bash
+export HESTIA_TARGET='user@server'
+export HESTIA_WEBROOT='/home/user/web/signalspiral.norgan.net/public_html'
+bash deploy-hestia.sh
+```
+
+Server details and credentials are intentionally not stored in the repository. See `DEPLOYMENT.md` for the deployment contract and verification commands.
+
+## Canon
+
 The canonical theory, formula, epistemic boundaries, applications, and harmonic-experiment provenance are recorded in `norgan/organian-signal-corpus`:
 
 ```text
@@ -225,4 +256,4 @@ wiki/frameworks/signal-spiral-harmonic-experiments.md
 
 ## Legacy Streamlit prototype
 
-`streamlit_app.py` is the April 2025 prototype and is retained for provenance. It is not the canonical public interface.
+`streamlit_app.py` is the April 2025 prototype and is retained for provenance. It is not part of the canonical public deployment.
