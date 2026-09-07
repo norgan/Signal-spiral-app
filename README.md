@@ -1,78 +1,18 @@
 # Signal Spiral
 
-A browser-based interface for exploring the Signal Spiral recursive resonance field, individual date-based traversals, relationship geometry, harmonic structure, experimental tone mappings, and the original Big Five estimate mapping.
+A static browser app for exploring the Signal Spiral recursive resonance field, individual date-seeded arcs, relationship geometry, harmonic structure, experimental sound mappings, and the original Big Five estimate mapping.
 
 Live site: https://signalspiral.norgan.net/
 
-## Current interface
+## Modes
 
-The canonical public interface is the static browser app:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-
-It runs entirely in the browser and requires no server-side runtime.
-
-Modes:
-
-- **Entire Field** — the shared golden-angle field, with optional recursive/Fibonacci or prime overlays.
-- **Individual** — choose the full field only, a DOB-seeded personal arc only, or the personal arc over the full field. The current DOB mapping uses `n = year × month`, with the day as the primary modular field and the month as the secondary anchor field.
+- **Entire Field** — golden-angle field with optional recursive/Fibonacci or prime overlays.
+- **Individual** — show the shared field only, a personal arc only, or the personal arc over the full field.
 - **Relationship** — overlay two to six people on the same field and calculate pairwise geometry, modular overlap and harmonic beat relationships.
 
-The app also reports:
+No personal example names or dates are embedded in the public interface. Inputs are processed locally in the browser. The static app does not submit DOBs or names to a server. Share links can contain values a user chooses to share, so copied links should be reviewed before sending.
 
-- geometric day and month fundamental angles;
-- normalised harmonic cycles;
-- closest phase returns;
-- the historical experimental harmonic index `f0 = (n × arm) / mod`;
-- its octave-equivalent family, retained for continuity with earlier Signal Spiral sensory experiments;
-- a browser tone generator with a play/stop control beside each displayed audio-mapped octave equivalent;
-- the original Big Five estimate mapping from the prototype;
-- angular separation, radial separation, Euclidean distance, `gcd`, `lcm`, shared residue nodes, first shared node and pairwise harmonic beat angle.
-
-## Privacy
-
-No personal example names or dates are embedded in the public interface.
-
-Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, so copied links should be reviewed before distribution.
-
-## Tone generator
-
-The harmonic table can map the legacy octave-equivalent values into audible sine tones using the Web Audio API.
-
-- only one tone plays at a time;
-- playback starts only after an explicit user click;
-- volume defaults low and is capped in the interface;
-- tones can be stopped immediately with the Stop tone control.
-
-These tones are experimental audio references only. They are not validated therapeutic frequencies and are not medical treatments.
-
-## Epistemic boundary
-
-The golden-angle, modular, prime and geometric calculations are mathematics.
-
-The consciousness-field framing, personality mapping, compatibility readings and sensory interpretation are exploratory philosophical models. The Big Five mapping is not a validated psychometric assessment. Harmonic indices and octave families are not medical measurements, prescriptions or treatments.
-
-## Run locally
-
-Open `index.html` directly, or serve the repository with any static web server:
-
-```bash
-python -m http.server 8080
-```
-
-Then visit `http://localhost:8080`.
-
-## Deployment
-
-Deploy the repository root as a static site. The custom production domain is:
-
-```text
-https://signalspiral.norgan.net/
-```
-
-## Mathematical basis
+## Core geometry
 
 For integer index `n`:
 
@@ -84,9 +24,9 @@ x_n          = radius_n × cos(theta_n)
 y_n          = radius_n × sin(theta_n)
 ```
 
-The square-root radius produces an approximately equal-area field. An optional linear radius (`r = n`) is retained to make individual traversal arcs more visually explicit.
+The square-root radius produces an approximately equal-area field. An optional linear radius (`r = n`) is retained because it makes the individual modular arcs visually explicit.
 
-For the current DOB-seeded traversal:
+The current date-seeded traversal is:
 
 ```text
 n         = year × month
@@ -94,26 +34,89 @@ day_arm   = n mod day
 month_arm = n mod month
 ```
 
-The intrinsic modular angular fundamental for modulus `m` is:
+The intrinsic angular fundamental for a modular field `m` is:
 
 ```text
 Δθ_m = (m × golden_angle) mod 2π
 ```
 
-The earlier experimental harmonic index is preserved separately:
+## Experimental harmonics
+
+The app deliberately preserves two historical sound mappings in addition to the intrinsic geometric harmonic.
+
+### Legacy index
 
 ```text
 f0 = (n × arm) / mod
 ```
 
-It is intentionally labelled as a legacy experimental index rather than a physical frequency measurement. Audio playback uses octave-equivalent values derived from this index as a deliberate sound mapping.
+Octave-equivalent values are produced by multiplying/dividing by powers of two until they fall inside the audible range. This is an experimental mapping, not a physical frequency derived from a measured biological oscillator.
 
-The canonical theory, formula, epistemic boundaries, and applications are recorded in `norgan/organian-signal-corpus`:
+### Recovered 432-base mapping
+
+The earlier Signal Spiral sensory experiment used:
+
+```text
+H    = (year × month) mod day
+f432 = 432 Hz × H
+```
+
+Because `n = year × month`, `H` is the same value as `day_arm` in the current model.
+
+A recovered early private experiment had `H = 2`, giving **864 Hz**, and was followed by a report of immediate subjective pain reduction. That observation is preserved as provenance for the experiment only. It was uncontrolled, unblinded and anecdotal, and is not evidence that 864 Hz treats pain.
+
+The app can play the displayed audible harmonic values as sine tones through the Web Audio API. Playback requires an explicit user click, only one tone plays at a time, and the volume control is capped low.
+
+## Big Five mapping
+
+The original prototype's Big Five estimate formula is retained for continuity. It is an exploratory deterministic mapping from the Signal Spiral parameters and is **not** a validated psychometric assessment.
+
+## Relationship metrics
+
+For each pair the app reports:
+
+- angular separation;
+- radial separation;
+- Euclidean field distance;
+- `gcd` and `lcm` of the day moduli;
+- whether the residue classes share field nodes;
+- the first shared node and recurrence interval;
+- harmonic beat angle.
+
+## Epistemic boundary
+
+The golden-angle, modular, prime and geometric calculations are mathematics.
+
+The consciousness-field framing, personality mapping, compatibility readings and sensory interpretations are exploratory philosophical models. Harmonic values and audio tones are not medical measurements, prescriptions or treatments. The app does not diagnose, predict or treat health conditions.
+
+## Run locally
+
+Open `index.html` directly, or:
+
+```bash
+python -m http.server 8080
+```
+
+Then visit `http://localhost:8080`.
+
+## Deployment
+
+The repository includes a GitHub Pages workflow for the static app and a `CNAME` file for:
+
+```text
+signalspiral.norgan.net
+```
+
+GitHub Pages must be configured to use **GitHub Actions** as its source, and DNS for the custom domain must point to GitHub Pages.
+
+## Canon
+
+The theory, formula, applications and epistemic boundaries are mirrored in `norgan/organian-signal-corpus`:
 
 ```text
 wiki/frameworks/signal-spiral-recursive-resonance-field.md
 ```
 
-## Legacy Streamlit prototype
+## Legacy prototype
 
-`streamlit_app.py` is the earlier prototype and is retained for provenance. It is not the canonical public interface.
+`streamlit_app.py` is retained for provenance. It is not the canonical public interface.
