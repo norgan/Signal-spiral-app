@@ -11,13 +11,14 @@ The canonical public interface is the static browser app:
 - `index.html`
 - `styles.css`
 - `app.js`
+- `harmonics432.js`
 
 It runs entirely in the browser and requires no server-side runtime.
 
 Modes:
 
 - **Entire Field** — the shared golden-angle field, with optional recursive/Fibonacci or prime overlays.
-- **Individual** — choose the full field only, a DOB-seeded personal arc only, or the personal arc over the full field. The current DOB mapping uses `n = year × month`, with the day as the primary modular field and the month as the secondary anchor field.
+- **Individual** — choose the full field only, a date-seeded personal arc only, or the personal arc over the full field. The current mapping uses `n = year × month`, with the day as the primary modular field and the month as the secondary anchor field.
 - **Relationship** — overlay two to six people on the same field and calculate pairwise geometry, modular overlap and harmonic beat relationships.
 
 The app also reports:
@@ -26,7 +27,9 @@ The app also reports:
 - normalised harmonic cycles;
 - closest phase returns;
 - the historical experimental harmonic index `f0 = (n × arm) / mod`;
-- its octave-equivalent family, retained for continuity with earlier Signal Spiral sensory experiments;
+- its octave-equivalent family;
+- the recovered 432-base harmonic `H = (year × month) mod day`, `f432 = 432 Hz × H`;
+- the 432-base octave family;
 - the original Big Five estimate mapping from the prototype;
 - angular separation, radial separation, Euclidean distance, `gcd`, `lcm`, shared residue nodes, first shared node and pairwise harmonic beat angle.
 
@@ -40,7 +43,9 @@ Dates and optional names entered into the app are processed locally in the brows
 
 The golden-angle, modular, prime and geometric calculations are mathematics.
 
-The consciousness-field framing, personality mapping, compatibility readings and sensory interpretation are exploratory philosophical models. The Big Five mapping is not a validated psychometric assessment. Harmonic indices and octave families are not medical measurements, prescriptions or treatments.
+The consciousness-field framing, personality mapping, compatibility readings and sensory interpretation are exploratory philosophical models. The Big Five mapping is not a validated psychometric assessment. Harmonic indices, the 432-base mapping and octave families are not medical measurements, prescriptions or treatments.
+
+An early private exploratory session using the 432-base mapping produced `H = 2`, therefore `864 Hz`, followed by a report of immediate subjective pain reduction. This is preserved as provenance for the experiment, not as evidence that 864 Hz treats pain. The observation was uncontrolled, unblinded and anecdotal.
 
 ## Run locally
 
@@ -74,7 +79,7 @@ y_n          = radius_n × sin(theta_n)
 
 The square-root radius produces an approximately equal-area field. An optional linear radius (`r = n`) is retained to make individual traversal arcs more visually explicit.
 
-For the current DOB-seeded traversal:
+For the current date-seeded traversal:
 
 ```text
 n         = year × month
@@ -94,7 +99,16 @@ The earlier experimental harmonic index is preserved separately:
 f0 = (n × arm) / mod
 ```
 
-It is intentionally labelled as a legacy experimental index rather than a physical frequency measurement.
+The recovered historical 432-base mapping is:
+
+```text
+H    = (year × month) mod day
+f432 = 432 Hz × H
+```
+
+Because `n = year × month`, `H` is the same value as `day_arm` in the current model.
+
+These harmonic mappings are intentionally labelled experimental rather than physical or therapeutic frequency measurements.
 
 The canonical theory, formula, epistemic boundaries, and applications are recorded in `norgan/organian-signal-corpus`:
 
