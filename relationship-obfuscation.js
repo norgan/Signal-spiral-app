@@ -2,7 +2,7 @@
 //
 // Relationship inputs remain available: users may enter names and dates of
 // birth normally. When obfuscation is enabled, names are replaced by anonymous
-// Person N labels for rendering and DOB controls are visually masked. The raw
+// Person N labels for rendering and DOB controls are visually masked. Raw
 // values remain only in this browser session so the relationship can be
 // recalculated after the user chooses to reveal them again.
 
@@ -13,6 +13,17 @@ function relationshipCards() {
   return [...document.querySelectorAll('#peopleGrid .person')];
 }
 
+function relationshipCaptureFullValues() {
+  relationshipCards().forEach((card) => {
+    const name = card.querySelector('.name');
+    const dob = card.querySelector('.dob');
+    if (!name || !dob) return;
+
+    name.dataset.privateName = name.value;
+    if (dob.type === 'date') dob.dataset.privateDob = dob.value;
+  });
+}
+
 function relationshipHasCompleteDates() {
   return relationshipCards().length >= 2 && relationshipCards().every((card) => {
     const dob = card.querySelector('.dob');
@@ -20,26 +31,17 @@ function relationshipHasCompleteDates() {
   });
 }
 
-function relationshipStorePrivateValues() {
-  relationshipCards().forEach((card) => {
-    const name = card.querySelector('.name');
-    const dob = card.querySelector('.dob');
-    if (!name || !dob) return;
-
-    if (!name.dataset.privateName) name.dataset.privateName = name.value;
-    if (!dob.dataset.privateDob && dob.type === 'date') dob.dataset.privateDob = dob.value;
-  });
-}
-
 function relationshipPreparePrivateRender() {
-  relationshipStorePrivateValues();
   relationshipCards().forEach((card, i) => {
     const name = card.querySelector('.name');
     const dob = card.querySelector('.dob');
     if (!name || !dob) return;
 
     name.value = `Person ${i + 1}`;
+    name.readOnly = false;
+
     dob.disabled = false;
+    dob.readOnly = false;
     dob.type = 'date';
     dob.value = dob.dataset.privateDob || '';
     dob.autocomplete = 'off';
@@ -47,7 +49,6 @@ function relationshipPreparePrivateRender() {
 }
 
 function relationshipMaskInputs() {
-  relationshipStorePrivateValues();
   relationshipCards().forEach((card, i) => {
     const name = card.querySelector('.name');
     const dob = card.querySelector('.dob');
@@ -73,31 +74,25 @@ function relationshipRevealInputs() {
     if (!name || !dob) return;
 
     name.readOnly = false;
-    name.value = name.dataset.privateName || (name.value === `Person ${i + 1}` ? '' : name.value);
+    name.value = name.dataset.privateName ?? (name.value === `Person ${i + 1}` ? '' : name.value);
     name.removeAttribute('aria-label');
 
-    const privateDob = dob.dataset.privateDob || '';
     dob.disabled = false;
     dob.readOnly = false;
     dob.type = 'date';
-    dob.value = privateDob;
+    dob.value = dob.dataset.privateDob || '';
     dob.autocomplete = 'off';
     dob.removeAttribute('aria-label');
   });
   $('peopleGrid').classList.remove('relationship-obfuscated');
 }
 
-function relationshipSanitiseUrl() {
+function relationshipSetPrivacyInUrl(value, stripPeople = false) {
   const params = new URLSearchParams(location.search);
-  let changed = false;
-  for (const key of ['people', 'name', 'dob']) {
-    if (params.has(key)) {
-      params.delete(key);
-      changed = true;
-    }
+  if (stripPeople) {
+    for (const key of ['people', 'name', 'dob']) params.delete(key);
   }
-  params.set('privacy', 'obfuscate');
-  if (!changed && new URLSearchParams(location.search).get('privacy') === 'obfuscate') return;
+  params.set('privacy', value);
 
   const queryText = params.toString();
   const clean = `${location.pathname}${queryText ? `?${queryText}` : ''}${location.hash}`;
@@ -122,68 +117,96 @@ function relationshipPrivacySafeShare() {
   }
 }
 
+function relationshipFullDetailShare() {
+  const people = relationshipCards()
+    .map((card, i) => ({
+      name: card.querySelector('.name')?.value || `Person ${i + 1}`,
+      dob: card.querySelector('.dob')?.value || ''
+    }))
+    .filter((person) => person.dob);
+
+  const params = new URLSearchParams({ mode: 'relationship', privacy: 'full' });
+  if (people.length) params.set('people', JSON.stringify(people));
+  params.set('asat', $('relationshipAsAt').value || (typeof v2IsoToday === 'function' ? v2IsoToday() : ''));
+  params.set('future', $('relationshipFuture').value);
+
+  const url = `${location.origin}${location.pathname}?${params}`;
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(url)
+      .then(() => alert('Full-detail relationship link copied. It includes entered names and dates of birth.'))
+      .catch(() => prompt('Copy this full-detail link:', url));
+  } else {
+    prompt('Copy this full-detail link:', url);
+  }
+}
+
 function relationshipPrivacyEnabled() {
   return relationshipPrivacySelect?.value === 'obfuscate';
 }
 
-// Apply the user's selection. Rendering while obfuscated temporarily restores
-// only the DOB values required by the calculator; names remain anonymous.
 relationshipPrivacySelect?.addEventListener('change', () => {
   if (relationshipPrivacyEnabled()) {
-    relationshipStorePrivateValues();
+    relationshipCaptureFullValues();
     if (relationshipHasCompleteDates() && typeof relationshipMode === 'function') {
       relationshipPreparePrivateRender();
       relationshipMode();
     }
     relationshipMaskInputs();
-    relationshipSanitiseUrl();
+    relationshipSetPrivacyInUrl('obfuscate', true);
   } else {
     relationshipRevealInputs();
+    relationshipSetPrivacyInUrl('full', false);
     if (relationshipHasCompleteDates() && typeof relationshipMode === 'function') relationshipMode();
   }
 });
 
-// Run before Arc Generator v2's capture handler so its calculations receive
-// real DOBs but anonymous display names when privacy is enabled.
+// This capture listener is registered before Arc Generator v2's handler. When
+// privacy is on it provides real DOBs for calculation but anonymous names for
+// every rendered label/table/canvas marker.
 $('renderRelationship')?.addEventListener('click', () => {
   if (!relationshipPrivacyEnabled()) return;
   relationshipPreparePrivateRender();
   setTimeout(() => relationshipMaskInputs(), 0);
 }, true);
 
-// Preserve private values across add/remove operations, then restore masking.
+// Preserve the real values across add/remove operations while the controls are
+// masked, then reapply the visual privacy state.
 for (const id of ['addPerson', 'removePerson']) {
   $(id)?.addEventListener('click', () => {
     if (!relationshipPrivacyEnabled()) return;
     relationshipRevealInputs();
     setTimeout(() => {
-      relationshipStorePrivateValues();
+      relationshipCaptureFullValues();
       relationshipMaskInputs();
     }, 0);
   }, true);
 }
 
-// This listener is registered before arc-v2.js. When privacy is enabled it
-// prevents the normal relationship share handler from serialising people/DOBs.
+// Own relationship sharing in both modes so the privacy choice is explicit.
+// This listener is registered before arc-v2.js and therefore prevents its
+// generic relationship share handler from running.
 $('copyLink')?.addEventListener('click', (event) => {
-  if (mode !== 'relationship' || !relationshipPrivacyEnabled()) return;
+  if (mode !== 'relationship') return;
   event.preventDefault();
   event.stopImmediatePropagation();
-  relationshipPrivacySafeShare();
+
+  if (relationshipPrivacyEnabled()) relationshipPrivacySafeShare();
+  else relationshipFullDetailShare();
 }, true);
 
-// Generic public pages start with details visible for normal data entry. Legacy
-// relationship links containing personal data default to obfuscation and are
-// cleaned from the visible URL immediately.
+// Generic public pages start with details visible for normal data entry. Old
+// relationship links that contain a `people` payload but no explicit privacy
+// choice are treated as private-by-default and sanitised from the address bar.
+// A new link carrying privacy=full remains full-detail by explicit choice.
 if (relationshipPrivacySelect) {
   const requested = relationshipPrivacyQuery.get('privacy');
-  const legacyPersonalLink = relationshipPrivacyQuery.has('people');
+  const legacyPersonalLink = relationshipPrivacyQuery.has('people') && !requested;
   relationshipPrivacySelect.value = requested === 'obfuscate' || legacyPersonalLink ? 'obfuscate' : 'full';
 
   if (relationshipPrivacyEnabled()) {
-    relationshipStorePrivateValues();
+    relationshipCaptureFullValues();
     relationshipPreparePrivateRender();
-    relationshipSanitiseUrl();
+    relationshipSetPrivacyInUrl('obfuscate', true);
     setTimeout(() => relationshipMaskInputs(), 0);
   }
 }
