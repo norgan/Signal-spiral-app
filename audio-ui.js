@@ -33,12 +33,19 @@ function audioToneButton(value, label = null, extraClass = '') {
     return `<span class="tone-unavailable" title="Outside browser playback range">${label ? `${esc(label)} · ` : ''}${Number.isFinite(frequency) ? `${frequency.toFixed(3)} Hz` : 'Unavailable'}</span>`;
   }
 
+  const edge = frequency < 40 || frequency > 12000;
   const text = `${label ? `${label} · ` : ''}${frequency.toFixed(3)} Hz`;
-  return `<button type="button" class="tone-button ${extraClass}" data-frequency="${frequency.toFixed(6)}" aria-label="Play ${esc(text)}">▶ ${esc(text)}</button>`;
+  const title = edge
+    ? 'Browser can generate this tone, but it may be difficult to hear on some ears, speakers or devices.'
+    : `Play ${text}`;
+  const classes = ['tone-button', extraClass, edge ? 'tone-edge' : ''].filter(Boolean).join(' ');
+  return `<button type="button" class="${classes}" data-frequency="${frequency.toFixed(6)}" aria-label="Play ${esc(text)}" title="${esc(title)}">▶ ${esc(text)}${edge ? ' ⚠' : ''}</button>`;
 }
 
 function audioLegacyPrimary(person) {
-  const family = octaveFamily(person, 20, 20000);
+  // Keep the primary legacy family in the comfortably audible range used by the
+  // original interface. This is where the user-reported preferred tones live.
+  const family = octaveFamily(person, 40, 4000);
   const picks = audioBandPicks(family);
   return {
     family,
@@ -73,14 +80,25 @@ renderHarmonics = function renderHarmonicsLegacyFirst(people) {
 
     html += `<tr>
       <td>${esc(person.name)}</td>
-      <td class="tone-list tone-primary-list">${legacy.primaryHtml}</td>
-      <td class="tone-list"><details><summary>${legacy.family.length} octave-equivalent tone${legacy.family.length === 1 ? '' : 's'}</summary><div class="tone-family">${legacy.allHtml}</div></details></td>
+      <td class="tone-list tone-primary-list">${legacy.primaryHtml}<div class="fine">Chosen from the legacy octave family around low, mid and high listening bands.</div></td>
+      <td class="tone-list"><details><summary>${legacy.family.length} legacy octave-equivalent tone${legacy.family.length === 1 ? '' : 's'}</summary><div class="tone-family">${legacy.allHtml}</div></details></td>
       <td>${deg(h.dayDelta).toFixed(3)}°<br><span class="fine">${h.dayCycles.toFixed(6)} cycles</span></td>
       <td>${returns}</td>
-      <td><details><summary>${historical.base > 0 ? `${historical.base.toFixed(3)} Hz base` : 'phase-zero'}</summary><div class="tone-family"><div>${historical.baseHtml}</div><div class="fine">432 octave family</div>${historical.familyHtml}</div></details></td>
+      <td><details><summary>${historical.base > 0 ? `${historical.base.toFixed(3)} Hz base` : 'phase-zero'}</summary><div class="tone-family"><div>${historical.baseHtml}</div><div class="fine">Historical 432 octave family. ⚠ marks frequencies that may be hard to hear on some ears or devices.</div>${historical.familyHtml}</div></details></td>
     </tr>`;
   }
 
   $('harmonicsTable').innerHTML = html;
   $('harmonicsSection').classList.remove('hidden');
 };
+
+// If this layer is loaded after a populated view was already rendered, redraw
+// once so the legacy-first audio interface appears immediately.
+try {
+  const audioUiQuery = new URLSearchParams(location.search);
+  if (mode === 'individual' && $('individualDob')?.value && typeof individualMode === 'function') individualMode();
+  if (mode === 'relationship') {
+    const valid = [...document.querySelectorAll('.person .dob')].filter((input) => input.value || input.dataset.privateDob).length;
+    if (valid >= 2 && typeof relationshipMode === 'function') relationshipMode();
+  }
+} catch (_) {}
