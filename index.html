@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore the Signal Spiral consciousness-field hypothesis, birth-seeded individual arcs, lived traversal, relationship geometry, and experimental harmonic mappings.">
   <title>Recursive Resonance • Signal Spiral</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260908-1">
 </head>
 <body>
   <main class="container">
@@ -116,6 +116,12 @@
         <button id="removePerson">Remove Person</button>
       </div>
       <div class="grid controls">
+        <label>Personal detail display
+          <select id="relationshipPrivacy">
+            <option value="full" selected>Show entered names and dates</option>
+            <option value="obfuscate">Obfuscate personal details</option>
+          </select>
+        </label>
         <label>Observe arcs as at
           <input type="date" id="relationshipAsAt">
         </label>
@@ -155,6 +161,7 @@
           </select>
         </label>
       </div>
+      <p class="fine">Obfuscation keeps the entered values available locally for calculation, renders anonymous Person labels, masks DOB controls, and omits names/DOBs from copied relationship links.</p>
       <div class="actions">
         <button class="primary" id="renderRelationship">Generate Relationship Field</button>
       </div>
@@ -202,16 +209,17 @@
 
       <aside class="boundary">
         <strong>Arc Generator v2:</strong> the candidate individual arc is a designed hypothesis. The mathematics establishes what follows from the chosen rule <code>n₀ = year × month</code>, <code>m = day</code>, <code>n(k)=n₀+k·m</code>; it does not establish that a birth date determines consciousness, identity, personality or destiny.<br><br>
-        <strong>Privacy:</strong> entered names and dates are processed locally in your browser. This static app does not submit them to a server. Share links can contain values you choose to include, so review a copied link before sending it.<br><br>
+        <strong>Privacy:</strong> entered names and dates are processed locally in your browser. Relationship mode can optionally obfuscate names and dates in the visible interface and omit them from copied links. Full-detail sharing remains an explicit user choice.<br><br>
         <strong>Epistemic boundary:</strong> the golden-angle, modular, prime and geometric calculations are mathematics. Consciousness-field, personality and compatibility readings are philosophical or exploratory interpretations. Harmonic tone mappings are experimental audio references, not medical measurements or treatments. The app does not diagnose, predict, or treat health conditions.
       </aside>
     </section>
 
     <footer>Signal Spiral • Recursive Resonance • Arc Generator v2</footer>
   </main>
-  <script src="app.js"></script>
-  <script src="arc-v2.js"></script>
-  <script src="harmonics432.js"></script>
-  <script src="tone-engine.js"></script>
+  <script src="app.js?v=20260908-1"></script>
+  <script src="relationship-obfuscation.js?v=20260908-1"></script>
+  <script src="arc-v2.js?v=20260908-1"></script>
+  <script src="harmonics432.js?v=20260908-1"></script>
+  <script src="tone-engine.js?v=20260908-1"></script>
 </body>
 </html>
