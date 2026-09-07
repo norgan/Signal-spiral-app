@@ -45,8 +45,6 @@ async function toneEnsureContext() {
     }
   }
 
-  // Some browsers expose states other than "suspended" while waiting for a
-  // user-gesture resume. Attempt resume for every non-running, non-closed state.
   if (audioContext.state !== 'running' && audioContext.state !== 'closed') {
     try { await audioContext.resume(); } catch (_) {}
   }
@@ -168,12 +166,9 @@ async function playToneReliable(frequency, button) {
   }
 }
 
-// Replace the mutable global function bindings used by app.js.
 playTone = playToneReliable;
 stopTone = stopToneReliable;
 
-// Capture tone-button clicks before the older delegated handler. This avoids
-// duplicate oscillator starts while retaining the original HTML generation.
 $('harmonicsTable')?.addEventListener('click', (event) => {
   const button = event.target.closest('.tone-button');
   if (!button) return;
@@ -182,8 +177,6 @@ $('harmonicsTable')?.addEventListener('click', (event) => {
   playToneReliable(Number(button.dataset.frequency), button);
 }, true);
 
-// app.js registered the original stop function by reference, so intercept the
-// stop button in capture phase and route it to the hardened engine.
 $('stopTone')?.addEventListener('click', (event) => {
   event.preventDefault();
   event.stopImmediatePropagation();
@@ -207,9 +200,14 @@ $('toneVolume')?.addEventListener('input', () => {
 window.addEventListener('pagehide', () => stopToneReliable({ quiet: true }));
 toneSetStatus('Audio idle · click Test 432 Hz to verify output');
 
-// Load the optional visual-semantics layer after Arc v2 and the rest of the
-// runtime are fully initialised. This changes only presentation, not formulas.
+// Presentation-only extension layers. Both load after the mathematical runtime
+// and may redraw an already populated view without changing any formulas.
 const arcVisualSemanticsScript = document.createElement('script');
 arcVisualSemanticsScript.src = 'arc-visual-semantics.js?v=20260908-2';
 arcVisualSemanticsScript.defer = true;
 document.head.appendChild(arcVisualSemanticsScript);
+
+const audioUiScript = document.createElement('script');
+audioUiScript.src = 'audio-ui.js?v=20260908-3';
+audioUiScript.defer = true;
+document.head.appendChild(audioUiScript);
