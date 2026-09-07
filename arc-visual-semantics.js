@@ -121,7 +121,7 @@ v2StrokeArc = function v2StrokeArcSemantic(indices, colour, geometry, scale, cen
     width: 0.75
   });
   v2DrawSampleNodes(indices, colour, geometry, scale, centre, 0.9, 2.7, false);
-  v2DrawRecurrenceMarkers(indices, colour, geometry, scale, centre);
+  if (mode === 'individual') v2DrawRecurrenceMarkers(indices, colour, geometry, scale, centre);
 };
 
 // Add recurrence information to the metric panel after an individual render.
