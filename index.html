@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the Signal Spiral consciousness field, individual DOB-seeded arcs, relationship overlays, harmonic summaries, and experimental tone mappings.">
+  <meta name="description" content="Explore the Signal Spiral consciousness field, individual DOB-seeded arcs, relationship overlays, harmonic summaries, experimental 432-base mapping, and Big Five estimates.">
   <title>Recursive Resonance • Signal Spiral</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -46,14 +46,12 @@
           </select>
         </label>
       </div>
-      <div class="actions">
-        <button class="primary" id="renderField">Render Field</button>
-      </div>
+      <div class="actions"><button class="primary" id="renderField">Render Field</button></div>
     </section>
 
     <section id="individual" class="panel mode">
       <h2>Individual Signal Fingerprint</h2>
-      <p>Choose whether to see a personal arc alone, the shared field alone, or the personal arc overlaid on the shared field.</p>
+      <p>View a personal arc alone, the shared field alone, or the personal arc overlaid on the full consciousness field.</p>
       <div class="grid">
         <div class="card">
           <h3>Person</h3>
@@ -93,14 +91,12 @@
           </label>
         </div>
       </div>
-      <div class="actions">
-        <button class="primary" id="renderIndividual">Generate Fingerprint</button>
-      </div>
+      <div class="actions"><button class="primary" id="renderIndividual">Generate Fingerprint</button></div>
     </section>
 
     <section id="relationship" class="panel mode">
       <h2>Relationship Field</h2>
-      <p>Overlay two to six people on the same field. Pairwise geometry is calculated independently of any philosophical interpretation.</p>
+      <p>Overlay two to six people on the same field. Each person retains a distinct modular arc while pairwise geometry and harmonic relationships are calculated across the shared substrate.</p>
       <div id="peopleGrid" class="grid"></div>
       <div class="actions">
         <button id="addPerson">Add Person</button>
@@ -135,9 +131,7 @@
           </select>
         </label>
       </div>
-      <div class="actions">
-        <button class="primary" id="renderRelationship">Generate Relationship Field</button>
-      </div>
+      <div class="actions"><button class="primary" id="renderRelationship">Generate Relationship Field</button></div>
     </section>
 
     <section class="visual-panel">
@@ -155,14 +149,14 @@
 
       <div id="harmonicsSection" class="table-section hidden">
         <h3>Fundamental harmonics</h3>
-        <p class="fine">The geometric harmonic is intrinsic to the spiral. The legacy harmonic index reproduces the earlier experimental formula <code>f₀ = (n × arm) / mod</code>. Its octave family is retained as experimental sensory data and is not a medical frequency prescription.</p>
+        <p class="fine">The geometric harmonic comes directly from the golden-angle field. Two earlier experimental sound mappings are preserved for provenance: the legacy index <code>f₀ = (n × arm) / mod</code>, and the recovered 432-base mapping <code>H = (year × month) mod day</code>, <code>f₄₃₂ = 432 Hz × H</code>. Audio buttons play sine tones only after a user click.</p>
         <div class="tone-controls">
           <label for="toneVolume">Tone volume
             <input id="toneVolume" type="range" min="0" max="0.08" step="0.005" value="0.02">
           </label>
           <button id="stopTone" type="button">Stop tone</button>
         </div>
-        <p class="fine">Tone buttons generate a sine wave at the displayed audio-mapped octave equivalent. Start at low volume and stop if uncomfortable.</p>
+        <p class="fine">Start at low volume and stop if uncomfortable. The audio mappings are experimental references, not validated therapeutic frequencies or medical treatment.</p>
         <div class="table-wrap"><table id="harmonicsTable"></table></div>
       </div>
 
@@ -178,13 +172,14 @@
       </div>
 
       <aside class="boundary">
-        <strong>Privacy:</strong> entered names and dates are processed locally in your browser. This static app does not submit them to a server. Share links can contain values you choose to include, so review a copied link before sending it.<br><br>
-        <strong>Epistemic boundary:</strong> the golden-angle, modular, prime and geometric calculations are mathematics. Consciousness-field, personality and compatibility readings are philosophical or exploratory interpretations. Harmonic tone mappings are experimental audio references, not medical measurements or treatments. The app does not diagnose, predict, or treat health conditions.
+        <strong>Privacy:</strong> no personal examples are embedded in this public build. Names and dates entered by users are processed locally in the browser. This static app does not submit them to a server. Share links can contain values a user chooses to include, so copied links should be reviewed before sending.<br><br>
+        <strong>Epistemic boundary:</strong> golden-angle, modular, prime and geometric calculations are mathematics. Consciousness-field, personality and compatibility readings are philosophical or exploratory interpretations. The Big Five mapping is not a validated psychometric assessment. Harmonic tone mappings are experimental audio references, not medical measurements or treatments.
       </aside>
     </section>
 
     <footer>Signal Spiral • Recursive Resonance</footer>
   </main>
   <script src="app.js"></script>
+  <script src="harmonics432.js"></script>
 </body>
 </html>
