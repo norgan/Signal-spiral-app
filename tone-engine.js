@@ -177,3 +177,10 @@ $('toneVolume')?.addEventListener('input', () => {
 
 window.addEventListener('pagehide', () => stopToneReliable({ quiet: true }));
 toneSetStatus('Audio idle · click Test 432 Hz to verify output');
+
+// Load the optional visual-semantics layer after Arc v2 and the rest of the
+// runtime are fully initialised. This changes only presentation, not formulas.
+const arcVisualSemanticsScript = document.createElement('script');
+arcVisualSemanticsScript.src = 'arc-visual-semantics.js?v=20260908-2';
+arcVisualSemanticsScript.defer = true;
+document.head.appendChild(arcVisualSemanticsScript);
