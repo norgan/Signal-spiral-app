@@ -1,6 +1,6 @@
 # Signal Spiral
 
-A browser-based interface for exploring the Signal Spiral recursive resonance field, individual date-based traversals, relationship geometry, harmonic structure, and the original experimental Big Five mapping.
+A browser-based interface for exploring the Signal Spiral recursive resonance field, individual date-based traversals, relationship geometry, harmonic structure, experimental tone mappings, and the original Big Five estimate mapping.
 
 Live site: https://signalspiral.norgan.net/
 
@@ -27,8 +27,26 @@ The app also reports:
 - closest phase returns;
 - the historical experimental harmonic index `f0 = (n × arm) / mod`;
 - its octave-equivalent family, retained for continuity with earlier Signal Spiral sensory experiments;
+- a browser tone generator with a play/stop control beside each displayed audio-mapped octave equivalent;
 - the original Big Five estimate mapping from the prototype;
 - angular separation, radial separation, Euclidean distance, `gcd`, `lcm`, shared residue nodes, first shared node and pairwise harmonic beat angle.
+
+## Privacy
+
+No personal example names or dates are embedded in the public interface.
+
+Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, so copied links should be reviewed before distribution.
+
+## Tone generator
+
+The harmonic table can map the legacy octave-equivalent values into audible sine tones using the Web Audio API.
+
+- only one tone plays at a time;
+- playback starts only after an explicit user click;
+- volume defaults low and is capped in the interface;
+- tones can be stopped immediately with the Stop tone control.
+
+These tones are experimental audio references only. They are not validated therapeutic frequencies and are not medical treatments.
 
 ## Epistemic boundary
 
@@ -71,8 +89,8 @@ The square-root radius produces an approximately equal-area field. An optional l
 For the current DOB-seeded traversal:
 
 ```text
-n        = year × month
-day_arm  = n mod day
+n         = year × month
+day_arm   = n mod day
 month_arm = n mod month
 ```
 
@@ -88,7 +106,7 @@ The earlier experimental harmonic index is preserved separately:
 f0 = (n × arm) / mod
 ```
 
-It is intentionally labelled as a legacy experimental index rather than a physical frequency measurement.
+It is intentionally labelled as a legacy experimental index rather than a physical frequency measurement. Audio playback uses octave-equivalent values derived from this index as a deliberate sound mapping.
 
 The canonical theory, formula, epistemic boundaries, and applications are recorded in `norgan/organian-signal-corpus`:
 
