@@ -1,6 +1,6 @@
 # Signal Spiral
 
-A browser-based interface for exploring the Signal Spiral recursive resonance field, individual date-based traversals, relationship geometry, harmonic structure, experimental tone mappings, and the original Big Five estimate mapping.
+A browser-based exploratory interface for the Signal Spiral recursive resonance field, birth-seeded individual arcs, lived traversal, relationship geometry, harmonic structure, experimental tone mappings, and the original Big Five estimate mapping.
 
 Live site: https://signalspiral.norgan.net/
 
@@ -11,6 +11,7 @@ The canonical public interface is the static browser app:
 - `index.html`
 - `styles.css`
 - `app.js`
+- `arc-v2.js`
 - `harmonics432.js`
 
 It runs entirely in the browser and requires no server-side runtime.
@@ -18,27 +19,128 @@ It runs entirely in the browser and requires no server-side runtime.
 Modes:
 
 - **Entire Field** — the shared golden-angle field, with optional recursive/Fibonacci or prime overlays.
-- **Individual** — choose the full field only, a date-seeded personal arc only, or the personal arc over the full field. The current mapping uses `n = year × month`, with the day as the primary modular field and the month as the secondary anchor field.
-- **Relationship** — overlay two to six people on the same field and calculate pairwise geometry, modular overlap and harmonic beat relationships.
+- **Individual** — generate a candidate individual arc from a date of birth, distinguish the full candidate residue family from the lived traversal, choose an observation date, and optionally preview future arc nodes.
+- **Relationship** — overlay two to six candidate arcs on the same field and calculate projected separation, modular intersection, recurrence period and stride-beat relationships.
 
-The app also reports:
+## Arc Generator v2
 
-- geometric day and month fundamental angles;
-- normalised harmonic cycles;
-- closest phase returns;
-- the historical experimental harmonic index `f0 = (n × arm) / mod`;
-- its octave-equivalent family, retained for continuity with earlier Signal Spiral sensory experiments;
-- the recovered 432-base harmonic `H = (year × month) mod day`, `f432 = 432 Hz × H`;
-- the 432-base octave family;
-- a browser tone generator with a play/stop control beside displayed audio-mapped values;
-- the original Big Five estimate mapping from the prototype;
-- angular separation, radial separation, Euclidean distance, `gcd`, `lcm`, shared residue nodes, first shared node and pairwise harmonic beat angle.
+Arc Generator v2 formalises the original purpose of the individual Signal Spiral: to suppose what an individual's arc might look like within the wider consciousness-field hypothesis.
+
+For a birth date with year `Y`, month `M`, and day `D`, the original Signal Spiral seed is retained:
+
+```text
+n0 = Y × M
+m  = D
+a  = n0 mod m
+```
+
+The candidate individual arc is the ordered subsequence:
+
+```text
+n(k) = n0 + k × m,   k >= 0
+```
+
+Every node therefore remains in the same residue class:
+
+```text
+n(k) mod m = a
+```
+
+The app distinguishes three things:
+
+- **candidate arc family** — the full residue class `a mod m` visible within the rendered field;
+- **lived traversal** — the ordered nodes from `n0` through one node per completed birthday;
+- **projected present position** — linear interpolation between the last completed-birthday node and the next candidate node according to progress through the current year of life.
+
+The observation date can be changed, allowing the same candidate arc to be viewed at earlier or later stages. A future preview may also be drawn, but it is explicitly continuation of the hypothesis rather than lived trajectory.
+
+For 29/12/1977:
+
+```text
+n0 = 1977 × 12 = 23724
+m  = 29
+a  = 23724 mod 29 = 2
+
+n(k) = 23724 + 29k
+```
+
+As of 8 September 2026, 48 birthdays have been completed, so the completed-birthday traversal reaches:
+
+```text
+n(48) = 25116
+```
+
+The observation date is approximately 69.3% of the way from that node toward the next node under the current interpolation convention.
+
+Arc Generator v2 is a designed hypothesis. The mathematics establishes the consequences of this mapping once chosen; it does not establish that a date of birth determines consciousness, personality, identity, fate, or behaviour.
+
+## Relationship geometry
+
+Multiple candidate arcs can be placed on the same field. The app currently calculates:
+
+- projected angular separation at the selected observation date;
+- projected radial separation;
+- Euclidean separation in the canonical `sqrt(n)` field geometry;
+- `gcd` and `lcm` of the two arc strides;
+- whether the two residue-class candidate arcs have exact shared nodes;
+- the next shared candidate node at or beyond the two current traversal nodes;
+- the stride-beat angle induced by the difference between their modular strides.
+
+Two candidate arcs `a1 mod m1` and `a2 mod m2` have exact shared nodes only when:
+
+```text
+a1 ≡ a2 (mod gcd(m1, m2))
+```
+
+When that condition holds, intersections recur every:
+
+```text
+lcm(m1, m2)
+```
+
+These are geometric or number-theoretic outputs. Compatibility meaning is not inferred by the mathematics.
+
+## Experimental harmonics and legacy mappings
+
+The app reports the geometric stride angle:
+
+```text
+Delta_theta_m = (m × golden_angle) mod 2pi
+```
+
+It also retains the historical experimental harmonic index from the April 2025 prototype:
+
+```text
+f0 = (n0 × a) / m
+```
+
+and the recovered 432-base mapping:
+
+```text
+H    = (year × month) mod day
+f432 = 432 Hz × H
+```
+
+Because `n0 = year × month` and `a = n0 mod day`, `H` is the same residue value as `a` in Arc Generator v2. Both harmonic systems and their octave families are deliberate experimental sound mappings, not physical measurements or therapeutic frequencies.
+
+The original Big Five estimate formula is also retained for provenance. It is not derived from Arc Generator v2 and is not a validated psychometric assessment.
+
+## Historical 432-base mapping
+
+A historical private test case produced:
+
+```text
+H = 2
+f432 = 864 Hz
+```
+
+The session was followed by a report of immediate subjective pain reduction. This is preserved as provenance for the experiment, not as evidence that 864 Hz treats pain. The observation was uncontrolled, unblinded and anecdotal.
 
 ## Privacy
 
 No personal example names or dates are embedded in the public interface.
 
-Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, so copied links should be reviewed before distribution.
+Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, including the observation date, so copied links should be reviewed before distribution.
 
 ## Tone generator
 
@@ -51,29 +153,17 @@ The harmonic table can map the experimental harmonic values into audible sine to
 
 These tones are experimental audio references only. They are not validated therapeutic frequencies and are not medical treatments.
 
-## Historical 432-base mapping
-
-The earlier Signal Spiral experiments also used:
-
-```text
-H    = (year × month) mod day
-f432 = 432 Hz × H
-```
-
-A historical private test case produced:
-
-```text
-H = 2
-f432 = 864 Hz
-```
-
-The session was followed by a report of immediate subjective pain reduction. This is preserved as provenance for the experiment, not as evidence that 864 Hz treats pain. The observation was uncontrolled, unblinded and anecdotal.
-
 ## Epistemic boundary
 
 The golden-angle, modular, prime and geometric calculations are mathematics.
 
-The consciousness-field framing, personality mapping, compatibility readings and sensory interpretation are exploratory philosophical models. The Big Five mapping is not a validated psychometric assessment. Harmonic indices, the 432-base mapping and octave families are not medical measurements, prescriptions or treatments.
+The consciousness-field framing, the DOB-seeded candidate arc, personality mapping, compatibility readings and sensory interpretation are exploratory philosophical models. The app does not establish that the field is consciousness or that a birth date reveals an objectively real personal trajectory.
+
+The intended discipline is:
+
+```text
+geometry first -> declared mapping -> observed consequence -> interpretation
+```
 
 ## Run locally
 
@@ -87,7 +177,7 @@ Then visit `http://localhost:8080`.
 
 ## Deployment
 
-The repository root is deployed as a static GitHub Pages site and includes:
+The repository root is prepared for static GitHub Pages deployment and includes:
 
 - `.github/workflows/pages.yml` for Actions deployment;
 - `CNAME` for `signalspiral.norgan.net`;
@@ -102,45 +192,29 @@ After that one-time setting, pushes to `main` run the Pages workflow automatical
 For integer index `n`:
 
 ```text
-golden_angle = π(3 − √5)
+golden_angle = pi(3 - sqrt(5))
 theta_n      = n × golden_angle
-radius_n     = √n
+radius_n     = sqrt(n)
 x_n          = radius_n × cos(theta_n)
 y_n          = radius_n × sin(theta_n)
 ```
 
 The square-root radius produces an approximately equal-area field. An optional linear radius (`r = n`) is retained to make individual traversal arcs more visually explicit.
 
-For the current date-seeded traversal:
+Arc Generator v2 uses:
 
 ```text
-n         = year × month
-day_arm   = n mod day
-month_arm = n mod month
+n0   = year × month
+m    = day
+a    = n0 mod m
+n(k) = n0 + k × m
 ```
 
-The intrinsic modular angular fundamental for modulus `m` is:
+The intrinsic modular angular fundamental for stride `m` is:
 
 ```text
-Δθ_m = (m × golden_angle) mod 2π
+Delta_theta_m = (m × golden_angle) mod 2pi
 ```
-
-The earlier experimental harmonic index is preserved separately:
-
-```text
-f0 = (n × arm) / mod
-```
-
-It is intentionally labelled as a legacy experimental index rather than a physical frequency measurement. Audio playback uses octave-equivalent values derived from this index as a deliberate sound mapping.
-
-The recovered historical 432-base mapping is preserved separately:
-
-```text
-H    = (year × month) mod day
-f432 = 432 Hz × H
-```
-
-Because `n = year × month`, `H` is the same value as `day_arm` in the current model.
 
 The canonical theory, formula, epistemic boundaries, applications, and harmonic-experiment provenance are recorded in `norgan/organian-signal-corpus`:
 
@@ -151,4 +225,4 @@ wiki/frameworks/signal-spiral-harmonic-experiments.md
 
 ## Legacy Streamlit prototype
 
-`streamlit_app.py` is the earlier prototype and is retained for provenance. It is not the canonical public interface.
+`streamlit_app.py` is the April 2025 prototype and is retained for provenance. It is not the canonical public interface.

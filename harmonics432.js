@@ -56,3 +56,17 @@ renderHarmonics = function renderHarmonicsWith432(people) {
   $('harmonicsTable').innerHTML = html;
   $('harmonicsSection').classList.remove('hidden');
 };
+
+// app.js can render a populated share link before this extension loads. When
+// Arc Generator v2 is present, redraw that populated mode once so the recovered
+// 432 table and the v2 traversal are both visible immediately.
+if (typeof individualModeV2 === 'function' && typeof relationshipModeV2 === 'function') {
+  const harmonicQuery = new URLSearchParams(location.search);
+  if (harmonicQuery.get('mode') === 'individual' && $('individualDob').value) {
+    individualModeV2();
+  }
+  if (harmonicQuery.get('mode') === 'relationship') {
+    const validCount = [...document.querySelectorAll('.person .dob')].filter((input) => input.value).length;
+    if (validCount >= 2) relationshipModeV2();
+  }
+}

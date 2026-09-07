@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the Signal Spiral consciousness field, individual date-seeded arcs, relationship overlays, harmonic summaries, and experimental tone mappings.">
+  <meta name="description" content="Explore the Signal Spiral consciousness-field hypothesis, birth-seeded individual arcs, lived traversal, relationship geometry, and experimental harmonic mappings.">
   <title>Recursive Resonance • Signal Spiral</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,7 +11,7 @@
   <main class="container">
     <header>
       <h1>Recursive Resonance</h1>
-      <p>The Signal Spiral consciousness field, individual traversals, relationship geometry and harmonics.</p>
+      <p>The Signal Spiral field, birth-seeded individual arcs, lived traversal, relationship geometry and experimental harmonics.</p>
     </header>
 
     <nav class="tabs" aria-label="Signal Spiral modes">
@@ -22,7 +22,7 @@
 
     <section id="field" class="panel mode active">
       <h2>The Signal Field</h2>
-      <p>The field is the shared golden-angle phyllotactic substrate. In the philosophical model it represents the consciousness field; the mathematics itself establishes only the geometry.</p>
+      <p>The field is the shared golden-angle phyllotactic substrate. In the philosophical model it represents a wider consciousness field; the mathematics itself establishes only the geometry.</p>
       <div class="grid controls">
         <label>Field density
           <select id="fieldPoints">
@@ -52,20 +52,21 @@
     </section>
 
     <section id="individual" class="panel mode">
-      <h2>Individual Signal Fingerprint</h2>
-      <p>Choose whether to see a personal arc alone, the shared field alone, or the personal arc overlaid on the shared field.</p>
+      <h2>Individual Arc</h2>
+      <p>Arc Generator v2 treats the date of birth as a candidate entry condition into the wider field. The original seed <code>n₀ = year × month</code> is retained; the birth day becomes the arc stride <code>m</code>, giving <code>n(k) = n₀ + k·m</code>. One traversal node is advanced per completed birthday.</p>
       <div class="grid">
         <div class="card">
           <h3>Person</h3>
           <label>Name (optional)<input id="individualName" placeholder="Person"></label>
           <label>Date of birth<input type="date" id="individualDob"></label>
+          <label>Observe arc as at<input type="date" id="individualAsAt"></label>
         </div>
         <div class="card">
           <h3>View</h3>
           <label>Composition
             <select id="individualView">
-              <option value="overlay" selected>Field + personal arc</option>
-              <option value="arc">Personal arc only</option>
+              <option value="overlay" selected>Field + candidate arc + lived traversal</option>
+              <option value="arc">Arc + lived traversal only</option>
               <option value="field">Full field only</option>
             </select>
           </label>
@@ -73,6 +74,14 @@
             <select id="individualBackground">
               <option value="full" selected>Full field</option>
               <option value="prime">Prime field</option>
+            </select>
+          </label>
+          <label>Future preview
+            <select id="individualFuture">
+              <option value="0">None</option>
+              <option value="5">5 arc nodes</option>
+              <option value="10" selected>10 arc nodes</option>
+              <option value="20">20 arc nodes</option>
             </select>
           </label>
         </div>
@@ -94,23 +103,26 @@
         </div>
       </div>
       <div class="actions">
-        <button class="primary" id="renderIndividual">Generate Fingerprint</button>
+        <button class="primary" id="renderIndividual">Generate Individual Arc</button>
       </div>
     </section>
 
     <section id="relationship" class="panel mode">
       <h2>Relationship Field</h2>
-      <p>Overlay two to six people on the same field. Pairwise geometry is calculated independently of any philosophical interpretation.</p>
+      <p>Overlay two to six candidate individual arcs on the same field. The app compares their projected present positions, residue-class intersections and stride geometry before any philosophical interpretation is applied.</p>
       <div id="peopleGrid" class="grid"></div>
       <div class="actions">
         <button id="addPerson">Add Person</button>
         <button id="removePerson">Remove Person</button>
       </div>
       <div class="grid controls">
+        <label>Observe arcs as at
+          <input type="date" id="relationshipAsAt">
+        </label>
         <label>Composition
           <select id="relationshipView">
-            <option value="overlay" selected>Field + people arcs</option>
-            <option value="arcs">People arcs only</option>
+            <option value="overlay" selected>Field + candidate arcs + lived traversal</option>
+            <option value="arcs">Arcs + lived traversal only</option>
             <option value="field">Full field only</option>
           </select>
         </label>
@@ -125,6 +137,14 @@
             <option value="pairs" selected>All pairwise lines</option>
             <option value="polygon">Input-order polygon</option>
             <option value="none">No lines</option>
+          </select>
+        </label>
+        <label>Future preview
+          <select id="relationshipFuture">
+            <option value="0">None</option>
+            <option value="5">5 arc nodes</option>
+            <option value="10" selected>10 arc nodes</option>
+            <option value="20">20 arc nodes</option>
           </select>
         </label>
         <label>Field density
@@ -150,12 +170,12 @@
     </section>
 
     <section class="panel">
-      <h2>Geometry and Harmonics</h2>
+      <h2>Arc Geometry</h2>
       <div id="summary" class="metrics"></div>
 
       <div id="harmonicsSection" class="table-section hidden">
-        <h3>Fundamental harmonics</h3>
-        <p class="fine">The geometric harmonic is intrinsic to the spiral. Two earlier experimental mappings are also retained for provenance: the legacy index <code>f₀ = (n × arm) / mod</code>, and the recovered 432-base mapping <code>H = (year × month) mod day</code>, <code>f₄₃₂ = 432 Hz × H</code>. These tone mappings are experimental sensory references, not medical frequency prescriptions.</p>
+        <h3>Experimental harmonics</h3>
+        <p class="fine">The stride angle is the geometric rotation produced by the candidate arc stride. Two historical experimental mappings are retained for provenance: the legacy index <code>f₀ = (n₀ × arm) / mod</code>, and the recovered 432-base mapping <code>H = (year × month) mod day</code>, <code>f₄₃₂ = 432 Hz × H</code>. These tone mappings are experimental sensory references, not physical or medical frequency measurements.</p>
         <div class="tone-controls">
           <label for="toneVolume">Tone volume
             <input id="toneVolume" type="range" min="0" max="0.08" step="0.005" value="0.02">
@@ -167,25 +187,28 @@
       </div>
 
       <div id="big5Section" class="table-section hidden">
-        <h3>Big Five estimate mapping</h3>
-        <p class="fine">Exploratory mapping retained from the original Signal Spiral prototype. It is not a validated psychometric assessment.</p>
+        <h3>Legacy Big Five estimate mapping</h3>
+        <p class="fine">Historical experimental mapping retained from the original April 2025 prototype for provenance. It is not derived from Arc Generator v2 and is not a validated psychometric assessment.</p>
         <div class="table-wrap"><table id="big5Table"></table></div>
       </div>
 
       <div id="relationshipSection" class="table-section hidden">
-        <h3>Pairwise relationship geometry</h3>
+        <h3>Pairwise arc geometry</h3>
+        <p class="fine">Shared candidate-arc nodes are exact modular intersections of the two residue classes. Projected present positions interpolate between the last completed-birthday node and the next candidate node for visual comparison.</p>
         <div class="table-wrap"><table id="relationshipTable"></table></div>
       </div>
 
       <aside class="boundary">
+        <strong>Arc Generator v2:</strong> the candidate individual arc is a designed hypothesis. The mathematics establishes what follows from the chosen rule <code>n₀ = year × month</code>, <code>m = day</code>, <code>n(k)=n₀+k·m</code>; it does not establish that a birth date determines consciousness, identity, personality or destiny.<br><br>
         <strong>Privacy:</strong> entered names and dates are processed locally in your browser. This static app does not submit them to a server. Share links can contain values you choose to include, so review a copied link before sending it.<br><br>
         <strong>Epistemic boundary:</strong> the golden-angle, modular, prime and geometric calculations are mathematics. Consciousness-field, personality and compatibility readings are philosophical or exploratory interpretations. Harmonic tone mappings are experimental audio references, not medical measurements or treatments. The app does not diagnose, predict, or treat health conditions.
       </aside>
     </section>
 
-    <footer>Signal Spiral • Recursive Resonance</footer>
+    <footer>Signal Spiral • Recursive Resonance • Arc Generator v2</footer>
   </main>
   <script src="app.js"></script>
+  <script src="arc-v2.js"></script>
   <script src="harmonics432.js"></script>
 </body>
 </html>
