@@ -87,11 +87,15 @@ Then visit `http://localhost:8080`.
 
 ## Deployment
 
-Deploy the repository root as a static site. The custom production domain is:
+The repository root is deployed as a static GitHub Pages site and includes:
 
-```text
-https://signalspiral.norgan.net/
-```
+- `.github/workflows/pages.yml` for Actions deployment;
+- `CNAME` for `signalspiral.norgan.net`;
+- `.nojekyll` for plain static-file serving.
+
+One repository setting must be enabled manually once before the workflow can deploy: **Settings → Pages → Build and deployment → Source → GitHub Actions**. The GitHub App used for automated repo edits cannot create the Pages site itself, so this setting cannot be enabled from the app workflow.
+
+After that one-time setting, pushes to `main` run the Pages workflow automatically.
 
 ## Mathematical basis
 
