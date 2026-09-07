@@ -10,6 +10,7 @@ FILES=(
   app.js
   relationship-obfuscation.js
   arc-v2.js
+  arc-visual-semantics.js
   harmonics432.js
   tone-engine.js
 )
@@ -27,9 +28,9 @@ rsync -avz --checksum --protect-args \
   "${HESTIA_TARGET}:${HESTIA_WEBROOT%/}/"
 
 echo
- echo "Remote bundle hashes:"
+echo "Remote bundle hashes:"
 ssh "$HESTIA_TARGET" \
   "cd \"${HESTIA_WEBROOT%/}\" && sha256sum ${FILES[*]}"
 
 echo
- echo "Deployment complete. Verify https://signalspiral.norgan.net/ in a fresh browser session."
+echo "Deployment complete. Verify https://signalspiral.norgan.net/ in a fresh browser session."
