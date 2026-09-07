@@ -12,6 +12,7 @@ FILES=(
   arc-v2.js
   arc-visual-semantics.js
   harmonics432.js
+  audio-ui.js
   tone-engine.js
 )
 

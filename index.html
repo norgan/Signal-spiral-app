@@ -182,7 +182,7 @@
 
       <div id="harmonicsSection" class="table-section hidden">
         <h3>Experimental harmonics</h3>
-        <p class="fine">The stride angle is the geometric rotation produced by the candidate arc stride. Two historical experimental mappings are retained for provenance: the legacy index <code>f₀ = (n₀ × arm) / mod</code>, and the recovered 432-base mapping <code>H = (year × month) mod day</code>, <code>f₄₃₂ = 432 Hz × H</code>. These tone mappings are experimental sensory references, not physical or medical frequency measurements.</p>
+        <p class="fine">The legacy harmonic family is the primary experimental listening surface. The geometric stride remains intrinsic to the spiral, while the recovered 432-base mapping is retained as a separate historical experiment. These tone mappings are experimental sensory references, not physical or medical frequency measurements.</p>
         <div class="tone-controls">
           <label for="toneVolume">Tone volume
             <input id="toneVolume" type="range" min="0" max="0.08" step="0.005" value="0.02">
@@ -191,7 +191,7 @@
           <button id="stopTone" type="button">Stop tone</button>
           <span id="toneStatus" class="fine" role="status" aria-live="polite">Audio idle</span>
         </div>
-        <p class="fine">Use <strong>Test 432 Hz</strong> first to verify browser audio. Tone buttons generate a sine wave at the displayed audio-mapped octave equivalent. Start at low volume and stop if uncomfortable.</p>
+        <p class="fine">Primary legacy tones stay in the 40–4000 Hz range. Historical octave equivalents near the edges of hearing are marked because they may be difficult to hear on some ears, speakers or devices even when the browser is generating them.</p>
         <div class="table-wrap"><table id="harmonicsTable"></table></div>
       </div>
 
@@ -220,6 +220,6 @@
   <script src="relationship-obfuscation.js?v=20260908-1"></script>
   <script src="arc-v2.js?v=20260908-1"></script>
   <script src="harmonics432.js?v=20260908-1"></script>
-  <script src="tone-engine.js?v=20260908-1"></script>
+  <script src="tone-engine.js?v=20260908-4"></script>
 </body>
 </html>
