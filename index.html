@@ -3,554 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore individual and relationship traversals through a golden-angle recursive resonance field.">
+  <meta name="description" content="Explore the Signal Spiral consciousness field, individual DOB-seeded arcs, relationship overlays, and harmonic summaries.">
   <title>Recursive Resonance • Signal Spiral</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-    :root {
-      --bg: #080a0d;
-      --panel: #10141a;
-      --panel-soft: #0d1116;
-      --text: #e9eef4;
-      --muted: #8c98a5;
-      --cyan: #15c7ff;
-      --gold: #ffd54f;
-      --pink: #ff4fc3;
-      --green: #9cff57;
-      --orange: #ff9d3d;
-      --violet: #a88cff;
-      --border: #202834;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: radial-gradient(circle at top, #101823 0, var(--bg) 42%);
-      color: var(--text);
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 56px;
-    }
-
-    header { text-align: center; margin-bottom: 26px; }
-
-    h1 {
-      font-size: clamp(2.2rem, 6vw, 4.2rem);
-      margin: 0 0 8px;
-      background: linear-gradient(90deg, var(--cyan), #8cf8ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 { margin-top: 0; }
-    p { color: var(--muted); line-height: 1.6; }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 24px 0;
-      flex-wrap: wrap;
-    }
-
-    .tab-button,
-    button {
-      padding: 12px 20px;
-      font: inherit;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      background: #111822;
-      color: var(--text);
-      transition: 150ms ease;
-    }
-
-    button:hover { transform: translateY(-1px); border-color: var(--cyan); }
-    .tab-button.active, .primary { background: var(--cyan); color: #001017; border-color: var(--cyan); }
-
-    .panel {
-      background: rgba(16, 20, 26, 0.92);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.24);
-    }
-
-    .mode { display: none; }
-    .mode.active { display: block; }
-
-    .input-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
-      margin: 16px 0;
-    }
-
-    .person-card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      background: var(--panel-soft);
-    }
-
-    label {
-      display: block;
-      text-align: left;
-      font-size: .84rem;
-      color: var(--muted);
-      margin: 10px 0 6px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px 13px;
-      font: inherit;
-      background: #090d12;
-      color: var(--text);
-      border: 1px solid #2b3643;
-      border-radius: 9px;
-    }
-
-    input:focus, select:focus { outline: 2px solid rgba(21,199,255,.35); border-color: var(--cyan); }
-
-    .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
-
-    canvas {
-      width: min(100%, 900px);
-      height: auto;
-      display: block;
-      margin: 20px auto;
-      background: #000;
-      border-radius: 18px;
-      box-shadow: 0 0 50px rgba(21,199,255,.12);
-    }
-
-    .results {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .metric {
-      padding: 14px;
-      background: #0b1016;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      text-align: left;
-    }
-
-    .metric strong { display: block; font-size: 1.15rem; margin-top: 4px; }
-    .swatch { width: 11px; height: 11px; border-radius: 50%; display: inline-block; margin-right: 7px; }
-
-    .note {
-      border-left: 3px solid var(--gold);
-      padding: 12px 14px;
-      background: rgba(255,213,79,.06);
-      color: #bec7d1;
-      text-align: left;
-      border-radius: 0 10px 10px 0;
-    }
-
-    .small { font-size: .88rem; }
-    footer { text-align: center; color: #596574; font-size: .86rem; margin-top: 28px; }
-
-    @media (max-width: 650px) {
-      .container { width: min(100% - 18px, 1180px); padding-top: 20px; }
-      .panel { padding: 15px; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+  <main class="container">
     <header>
       <h1>Recursive Resonance</h1>
-      <p>Golden-angle fields, individual traversals, and relationship geometry.</p>
+      <p>The Signal Spiral consciousness field, individual traversals, relationship geometry and harmonics.</p>
     </header>
 
-    <div class="tabs">
-      <button class="tab-button active" data-mode="field">Entire Field</button>
-      <button class="tab-button" data-mode="individual">Individual</button>
-      <button class="tab-button" data-mode="relationship">Relationship</button>
-    </div>
+    <nav class="tabs" aria-label="Signal Spiral modes">
+      <button class="tab active" data-mode="field">Entire Field</button>
+      <button class="tab" data-mode="individual">Individual</button>
+      <button class="tab" data-mode="relationship">Relationship</button>
+    </nav>
 
     <section id="field" class="panel mode active">
       <h2>The Signal Field</h2>
-      <p>The complete field uses golden-angle phyllotaxis with equal-area radial growth. Fibonacci-separated recurrence traces reveal nested parastichy relationships already latent in the point ordering.</p>
-      <div class="input-grid">
-        <div>
-          <label for="fieldPoints">Field density</label>
+      <p>The field is the shared golden-angle phyllotactic substrate. In the philosophical model it represents the consciousness field; the mathematics itself establishes only the geometry.</p>
+      <div class="grid controls">
+        <label>Field density
           <select id="fieldPoints">
-            <option value="25000">25,000 points</option>
-            <option value="60000" selected>60,000 points</option>
-            <option value="120000">120,000 points</option>
+            <option value="30000">30,000</option>
+            <option value="60000" selected>60,000</option>
+            <option value="120000">120,000</option>
+            <option value="250000">250,000</option>
           </select>
-        </div>
-        <div>
-          <label for="recurrence">Recursive overlays</label>
-          <select id="recurrence">
-            <option value="on" selected>Fibonacci recurrence</option>
-            <option value="off">Field only</option>
+        </label>
+        <label>Field overlay
+          <select id="fieldOverlay">
+            <option value="none">Field only</option>
+            <option value="recurrence" selected>Recursive resonance</option>
+            <option value="primes">Prime field</option>
           </select>
-        </div>
+        </label>
+        <label>Radius geometry
+          <select id="fieldGeometry">
+            <option value="sqrt" selected>√n — equal-area field</option>
+            <option value="linear">n — explicit spiral traversal</option>
+          </select>
+        </label>
       </div>
-      <div class="actions"><button class="primary" onclick="drawFieldMode()">Render Entire Field</button></div>
+      <div class="actions">
+        <button class="primary" id="renderField">Render Field</button>
+      </div>
     </section>
 
     <section id="individual" class="panel mode">
       <h2>Individual Signal Fingerprint</h2>
-      <p>The day and month form two modular traversals through the shared field. The marked coordinate is <code>year × month</code>.</p>
-      <div class="input-grid">
-        <div class="person-card">
-          <label for="individualName">Name</label>
-          <input id="individualName" value="Nathan">
-          <label for="individualDob">Date of birth</label>
-          <input type="date" id="individualDob" value="1977-12-29">
+      <p>Choose whether to see the personal arc alone, the shared field alone, or the personal arc overlaid on the shared field.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Person</h3>
+          <label>Name<input id="individualName" value="Nathan"></label>
+          <label>Date of birth<input type="date" id="individualDob" value="1977-12-29"></label>
+        </div>
+        <div class="card">
+          <h3>View</h3>
+          <label>Composition
+            <select id="individualView">
+              <option value="overlay" selected>Field + personal arc</option>
+              <option value="arc">Personal arc only</option>
+              <option value="field">Full field only</option>
+            </select>
+          </label>
+          <label>Background
+            <select id="individualBackground">
+              <option value="full" selected>Full field</option>
+              <option value="prime">Prime field</option>
+            </select>
+          </label>
+        </div>
+        <div class="card">
+          <h3>Geometry</h3>
+          <label>Radius
+            <select id="individualGeometry">
+              <option value="sqrt" selected>√n — same field geometry</option>
+              <option value="linear">n — emphasise arc structure</option>
+            </select>
+          </label>
+          <label>Field density
+            <select id="individualPoints">
+              <option value="30000">30,000</option>
+              <option value="60000" selected>60,000</option>
+              <option value="120000">120,000</option>
+            </select>
+          </label>
         </div>
       </div>
-      <div class="actions"><button class="primary" onclick="drawIndividualMode()">Generate Fingerprint</button></div>
+      <div class="actions">
+        <button class="primary" id="renderIndividual">Generate Fingerprint</button>
+      </div>
     </section>
 
     <section id="relationship" class="panel mode">
       <h2>Relationship Field</h2>
-      <p>Overlay two to six individual traversals on the same golden-angle field. Geometry is calculated first; any meaning remains interpretive.</p>
-      <div id="peopleGrid" class="input-grid"></div>
+      <p>Overlay two to six people on the same field. Pairwise geometry is calculated independently of any philosophical interpretation.</p>
+      <div id="peopleGrid" class="grid"></div>
       <div class="actions">
-        <button onclick="addPerson()">Add Person</button>
-        <button onclick="removePerson()">Remove Person</button>
-        <button class="primary" onclick="drawRelationshipMode()">Generate Relationship Field</button>
+        <button id="addPerson">Add Person</button>
+        <button id="removePerson">Remove Person</button>
+      </div>
+      <div class="grid controls">
+        <label>Composition
+          <select id="relationshipView">
+            <option value="overlay" selected>Field + people arcs</option>
+            <option value="arcs">People arcs only</option>
+            <option value="field">Full field only</option>
+          </select>
+        </label>
+        <label>Radius geometry
+          <select id="relationshipGeometry">
+            <option value="sqrt" selected>√n — same field geometry</option>
+            <option value="linear">n — emphasise arcs</option>
+          </select>
+        </label>
+        <label>Connections
+          <select id="relationshipConnections">
+            <option value="pairs" selected>All pairwise lines</option>
+            <option value="polygon">Input-order polygon</option>
+            <option value="none">No lines</option>
+          </select>
+        </label>
+        <label>Field density
+          <select id="relationshipPoints">
+            <option value="30000">30,000</option>
+            <option value="60000" selected>60,000</option>
+            <option value="120000">120,000</option>
+          </select>
+        </label>
+      </div>
+      <div class="actions">
+        <button class="primary" id="renderRelationship">Generate Relationship Field</button>
       </div>
     </section>
 
-    <canvas id="spiral" width="1000" height="1000"></canvas>
+    <section class="visual-panel">
+      <canvas id="spiral" width="1000" height="1000" aria-label="Signal Spiral visualisation"></canvas>
+      <div id="legend" class="legend"></div>
+      <div class="actions">
+        <button id="downloadPng">Download PNG</button>
+        <button id="copyLink">Copy Share Link</button>
+      </div>
+    </section>
 
     <section class="panel">
-      <h2>Geometry</h2>
-      <div id="results" class="results"></div>
-      <div class="actions">
-        <button onclick="downloadPNG()">Download PNG</button>
-        <button onclick="shareLink()">Copy Share Link</button>
+      <h2>Geometry and Harmonics</h2>
+      <div id="summary" class="metrics"></div>
+
+      <div id="harmonicsSection" class="table-section hidden">
+        <h3>Fundamental harmonics</h3>
+        <p class="fine">The geometric harmonic is intrinsic to the spiral. The legacy harmonic index reproduces the earlier experimental formula <code>f₀ = (n × arm) / mod</code>. Its octave family is retained as experimental sensory data and is not a medical frequency prescription.</p>
+        <div class="table-wrap"><table id="harmonicsTable"></table></div>
       </div>
-      <div class="note small">
-        This is a mathematical and philosophical visualisation. It does not measure consciousness, personality, compatibility, destiny, health, or moral character. Geometry first; interpretation second.
+
+      <div id="big5Section" class="table-section hidden">
+        <h3>Big Five estimate mapping</h3>
+        <p class="fine">Exploratory mapping retained from the original Signal Spiral prototype. It is not a validated psychometric assessment.</p>
+        <div class="table-wrap"><table id="big5Table"></table></div>
       </div>
+
+      <div id="relationshipSection" class="table-section hidden">
+        <h3>Pairwise relationship geometry</h3>
+        <div class="table-wrap"><table id="relationshipTable"></table></div>
+      </div>
+
+      <aside class="boundary">
+        <strong>Epistemic boundary:</strong> the golden-angle, modular, prime and geometric calculations are mathematics. Consciousness-field, personality and compatibility readings are philosophical or exploratory interpretations. The app does not diagnose, predict, or treat health conditions.
+      </aside>
     </section>
 
-    <footer>
-      Signal Spiral • Nathan Organ • Running theory and formula: organian-signal-corpus
-    </footer>
-  </div>
-
-  <script>
-    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
-    const COLORS = ["#15c7ff", "#ffd54f", "#ff4fc3", "#9cff57", "#ff9d3d", "#a88cff"];
-    const canvas = document.getElementById("spiral");
-    const ctx = canvas.getContext("2d");
-    let peopleCount = 2;
-    let lastMode = "field";
-
-    function parseDob(value) {
-      const [year, month, day] = value.split("-").map(Number);
-      if (!year || !month || !day) throw new Error("Enter a valid date.");
-      return { year, month, day };
-    }
-
-    function profile(name, dob, colour) {
-      const { year, month, day } = parseDob(dob);
-      const n = year * month;
-      return {
-        name: name.trim() || "Unnamed",
-        dob,
-        year,
-        month,
-        day,
-        n,
-        dayMod: day,
-        dayArm: n % day,
-        monthMod: month,
-        monthArm: n % month,
-        colour
-      };
-    }
-
-    function coord(index, scale, centre) {
-      const radius = Math.sqrt(index) * scale;
-      const theta = index * GOLDEN_ANGLE;
-      return {
-        x: centre + radius * Math.cos(theta),
-        y: centre + radius * Math.sin(theta),
-        radius,
-        theta
-      };
-    }
-
-    function clearCanvas() {
-      ctx.fillStyle = "#000";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.shadowBlur = 0;
-    }
-
-    function fieldScale(maxIndex) {
-      return (canvas.width * 0.46) / Math.sqrt(Math.max(1, maxIndex));
-    }
-
-    function drawBaseField(maxIndex, pointLimit = 70000, alpha = 0.23) {
-      const centre = canvas.width / 2;
-      const count = Math.min(maxIndex, pointLimit);
-      const scale = fieldScale(count);
-      ctx.fillStyle = `rgba(55,72,90,${alpha})`;
-      for (let i = 0; i < count; i++) {
-        const p = coord(i, scale, centre);
-        ctx.fillRect(p.x, p.y, 1, 1);
-      }
-      return { centre, scale, count };
-    }
-
-    function drawResidue(profile, modulus, arm, colour, maxIndex, scale, centre, size = 1.7, alpha = 0.66) {
-      ctx.fillStyle = hexToRgba(colour, alpha);
-      for (let i = arm; i < maxIndex; i += modulus) {
-        const p = coord(i, scale, centre);
-        ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
-      }
-    }
-
-    function drawMarker(p, profile, scale, centre) {
-      const point = coord(profile.n, scale, centre);
-      ctx.save();
-      ctx.shadowBlur = 18;
-      ctx.shadowColor = profile.colour;
-      ctx.fillStyle = profile.colour;
-      ctx.beginPath();
-      ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-      ctx.fillStyle = "#fff";
-      ctx.font = "13px Inter, sans-serif";
-      ctx.fillText(profile.name, point.x + 10, point.y - 9);
-      return point;
-    }
-
-    function drawFieldMode() {
-      lastMode = "field";
-      clearCanvas();
-      const points = Number(document.getElementById("fieldPoints").value);
-      const recurrence = document.getElementById("recurrence").value === "on";
-      const centre = canvas.width / 2;
-      const scale = fieldScale(points);
-
-      ctx.fillStyle = "rgba(21,199,255,.48)";
-      for (let i = 0; i < points; i++) {
-        const p = coord(i, scale, centre);
-        ctx.fillRect(p.x, p.y, 1, 1);
-      }
-
-      if (recurrence) {
-        [13,21,34,55,89,144].forEach((step, layer) => {
-          ctx.strokeStyle = `rgba(255,255,255,${0.035 + layer * 0.006})`;
-          ctx.lineWidth = 0.4;
-          const offsetCount = Math.min(step, 12);
-          for (let offset = 0; offset < offsetCount; offset++) {
-            ctx.beginPath();
-            let started = false;
-            for (let i = offset; i < points; i += step * 18) {
-              const p = coord(i, scale, centre);
-              if (!started) { ctx.moveTo(p.x, p.y); started = true; }
-              else ctx.lineTo(p.x, p.y);
-            }
-            ctx.stroke();
-          }
-        });
-      }
-
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      ctx.arc(centre, centre, 3, 0, Math.PI * 2);
-      ctx.fill();
-      setResults([{ label: "Field points", value: points.toLocaleString() }, { label: "Golden angle", value: "137.507764°" }, { label: "Radius", value: "√n (equal-area)" }]);
-    }
-
-    function drawIndividualMode() {
-      lastMode = "individual";
-      clearCanvas();
-      try {
-        const p = profile(document.getElementById("individualName").value, document.getElementById("individualDob").value, COLORS[0]);
-        const maxIndex = Math.max(p.n + 500, 25000);
-        const { centre, scale } = drawBaseField(maxIndex, maxIndex, 0.18);
-        drawResidue(p, p.monthMod, p.monthArm, COLORS[1], maxIndex, scale, centre, 1.35, 0.45);
-        drawResidue(p, p.dayMod, p.dayArm, p.colour, maxIndex, scale, centre, 1.7, 0.76);
-        drawMarker(p, p, scale, centre);
-        setResults([
-          { label: "Traversal index", value: p.n.toLocaleString() },
-          { label: "Day field", value: `${p.dayArm} mod ${p.dayMod}` },
-          { label: "Month field", value: `${p.monthArm} mod ${p.monthMod}` },
-          { label: "Epoch coordinate", value: `${p.year} × ${p.month}` }
-        ]);
-      } catch (error) { alert(error.message); }
-    }
-
-    function renderPeopleInputs() {
-      const grid = document.getElementById("peopleGrid");
-      const existing = [...grid.querySelectorAll(".person-card")].map(card => ({
-        name: card.querySelector(".person-name")?.value,
-        dob: card.querySelector(".person-dob")?.value
-      }));
-      const defaults = [
-        { name: "Nathan", dob: "1977-12-29" },
-        { name: "Bec", dob: "1984-11-13" },
-        { name: "Izzy", dob: "2019-07-07" },
-        { name: "Tay", dob: "2018-05-04" }
-      ];
-      grid.innerHTML = "";
-      for (let i = 0; i < peopleCount; i++) {
-        const value = existing[i] || defaults[i] || { name: `Person ${i + 1}`, dob: "2000-01-01" };
-        grid.insertAdjacentHTML("beforeend", `
-          <div class="person-card">
-            <div><span class="swatch" style="background:${COLORS[i]}"></span><strong>Person ${i + 1}</strong></div>
-            <label>Name</label><input class="person-name" value="${escapeHtml(value.name)}">
-            <label>Date of birth</label><input class="person-dob" type="date" value="${value.dob}">
-          </div>`);
-      }
-    }
-
-    function addPerson() { if (peopleCount < 6) { peopleCount++; renderPeopleInputs(); } }
-    function removePerson() { if (peopleCount > 2) { peopleCount--; renderPeopleInputs(); } }
-
-    function collectPeople() {
-      return [...document.querySelectorAll("#peopleGrid .person-card")].map((card, i) =>
-        profile(card.querySelector(".person-name").value, card.querySelector(".person-dob").value, COLORS[i])
-      );
-    }
-
-    function drawRelationshipMode() {
-      lastMode = "relationship";
-      clearCanvas();
-      try {
-        const people = collectPeople();
-        const maxN = Math.max(...people.map(p => p.n)) + 800;
-        const { centre, scale } = drawBaseField(maxN, Math.min(maxN, 60000), 0.12);
-        const points = [];
-
-        people.forEach(p => {
-          drawResidue(p, p.dayMod, p.dayArm, p.colour, maxN, scale, centre, 1.55, 0.68);
-          points.push(drawMarker(p, p, scale, centre));
-        });
-
-        ctx.strokeStyle = "rgba(255,255,255,.55)";
-        ctx.setLineDash([6, 7]);
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        points.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-        ctx.closePath();
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const metrics = relationshipMetrics(people, points, scale);
-        setResults(metrics);
-      } catch (error) { alert(error.message); }
-    }
-
-    function relationshipMetrics(people, points, scale) {
-      const metrics = [];
-      for (let i = 0; i < people.length; i++) {
-        for (let j = i + 1; j < people.length; j++) {
-          const a = people[i], b = people[j];
-          const angular = smallestAngle((a.n * GOLDEN_ANGLE) - (b.n * GOLDEN_ANGLE));
-          const radial = Math.abs(Math.sqrt(a.n) - Math.sqrt(b.n));
-          const dx = (points[i].x - points[j].x) / scale;
-          const dy = (points[i].y - points[j].y) / scale;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          metrics.push({ label: `${a.name} ↔ ${b.name}`, value: `${toDegrees(angular).toFixed(1)}° · Δr ${radial.toFixed(1)} · d ${distance.toFixed(1)}` });
-        }
-      }
-      return metrics;
-    }
-
-    function smallestAngle(angle) {
-      const full = Math.PI * 2;
-      const normal = ((angle % full) + full) % full;
-      return Math.min(normal, full - normal);
-    }
-
-    function toDegrees(radians) { return radians * 180 / Math.PI; }
-
-    function setResults(items) {
-      document.getElementById("results").innerHTML = items.map(item =>
-        `<div class="metric"><span>${item.label}</span><strong>${item.value}</strong></div>`
-      ).join("");
-    }
-
-    function hexToRgba(hex, alpha) {
-      const value = hex.replace("#", "");
-      const bigint = parseInt(value.length === 3 ? value.split("").map(c => c + c).join("") : value, 16);
-      const r = (bigint >> 16) & 255;
-      const g = (bigint >> 8) & 255;
-      const b = bigint & 255;
-      return `rgba(${r},${g},${b},${alpha})`;
-    }
-
-    function escapeHtml(value) {
-      return String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
-    }
-
-    function downloadPNG() {
-      const link = document.createElement("a");
-      link.download = `signal-spiral-${lastMode}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    }
-
-    function shareLink() {
-      const params = new URLSearchParams();
-      params.set("mode", lastMode);
-      if (lastMode === "individual") {
-        params.set("name", document.getElementById("individualName").value);
-        params.set("dob", document.getElementById("individualDob").value);
-      } else if (lastMode === "relationship") {
-        params.set("people", JSON.stringify(collectPeople().map(({name, dob}) => ({name, dob}))));
-      }
-      const url = `${location.origin}${location.pathname}?${params.toString()}`;
-      navigator.clipboard.writeText(url).then(() => alert("Share link copied."));
-    }
-
-    function activateMode(mode) {
-      lastMode = mode;
-      document.querySelectorAll(".mode").forEach(el => el.classList.toggle("active", el.id === mode));
-      document.querySelectorAll(".tab-button").forEach(el => el.classList.toggle("active", el.dataset.mode === mode));
-      if (mode === "field") drawFieldMode();
-      if (mode === "individual") drawIndividualMode();
-      if (mode === "relationship") drawRelationshipMode();
-    }
-
-    document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => activateMode(button.dataset.mode)));
-
-    window.addEventListener("load", () => {
-      renderPeopleInputs();
-      const params = new URLSearchParams(location.search);
-      const mode = params.get("mode") || "field";
-      if (params.get("name")) document.getElementById("individualName").value = params.get("name");
-      if (params.get("dob")) document.getElementById("individualDob").value = params.get("dob");
-      if (params.get("people")) {
-        try {
-          const shared = JSON.parse(params.get("people"));
-          peopleCount = Math.max(2, Math.min(6, shared.length));
-          renderPeopleInputs();
-          [...document.querySelectorAll("#peopleGrid .person-card")].forEach((card, i) => {
-            card.querySelector(".person-name").value = shared[i]?.name || `Person ${i + 1}`;
-            card.querySelector(".person-dob").value = shared[i]?.dob || "2000-01-01";
-          });
-        } catch (_) {}
-      }
-      activateMode(["field", "individual", "relationship"].includes(mode) ? mode : "field");
-    });
-  </script>
+    <footer>Signal Spiral • Nathan Organ • Recursive Resonance</footer>
+  </main>
+  <script src="app.js"></script>
 </body>
 </html>
