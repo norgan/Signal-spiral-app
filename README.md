@@ -30,6 +30,12 @@ The app also reports:
 - the original Big Five estimate mapping from the prototype;
 - angular separation, radial separation, Euclidean distance, `gcd`, `lcm`, shared residue nodes, first shared node and pairwise harmonic beat angle.
 
+## Privacy
+
+No personal example names or dates are embedded in the public interface.
+
+Dates and optional names entered into the app are processed locally in the browser by the static JavaScript application. The app does not submit them to a server. A user-generated share link can contain the values that user chooses to share, so copied links should be reviewed before distribution.
+
 ## Epistemic boundary
 
 The golden-angle, modular, prime and geometric calculations are mathematics.
@@ -71,8 +77,8 @@ The square-root radius produces an approximately equal-area field. An optional l
 For the current DOB-seeded traversal:
 
 ```text
-n        = year × month
-day_arm  = n mod day
+n         = year × month
+day_arm   = n mod day
 month_arm = n mod month
 ```
 
