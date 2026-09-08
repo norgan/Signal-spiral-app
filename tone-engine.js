@@ -203,7 +203,7 @@ toneSetStatus('Audio idle · click Test 432 Hz to verify output');
 // Presentation-only extension layers. Both load after the mathematical runtime
 // and may redraw an already populated view without changing any formulas.
 const arcVisualSemanticsScript = document.createElement('script');
-arcVisualSemanticsScript.src = 'arc-visual-semantics.js?v=20260908-2';
+arcVisualSemanticsScript.src = 'arc-visual-semantics.js?v=20260908-4';
 arcVisualSemanticsScript.defer = true;
 document.head.appendChild(arcVisualSemanticsScript);
 
